@@ -1,7 +1,7 @@
 // src/App.js
 import './App.css';
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Link, Routes, Route, useLocation } from 'react-router-dom'; // Removed Navigate
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Link, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -56,6 +56,16 @@ function AppContent() {
   const location = useLocation();
   const hideNavbar = location.pathname === '/login' || location.pathname === '/register';
 
+  // Close sidebar automatically on route change
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location]);
+
+  // Prevent page scroll when menu is open
+  useEffect(() => {
+    document.body.classList.toggle('menu-open', sidebarOpen);
+  }, [sidebarOpen]);
+
   return (
     <div className="app-container">
       {/* Navbar */}
@@ -64,6 +74,7 @@ function AppContent() {
           <button
             className="mobile-menu-button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="Toggle menu"
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
@@ -85,13 +96,22 @@ function AppContent() {
       )}
 
       <div className="main-content-wrapper">
+        {/* Mobile overlay */}
+        {!hideNavbar && (
+          <div
+            className={`mobile-overlay ${sidebarOpen ? 'active' : ''}`}
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
+        {/* Sidebar */}
         {!hideNavbar && (
           <aside className={`sidebar ${sidebarOpen ? 'active' : ''}`}>
-            <Link to="/leaderboard" className={`sidebar-link ${location.pathname === '/leaderboard' ? 'active' : ''}`}><FiTrendingUp /> Leaderboard</Link>
-            <Link to="/achievements" className={`sidebar-link ${location.pathname === '/achievements' ? 'active' : ''}`}><FiAward /> Achievements</Link>
-            <Link to="/progress" className={`sidebar-link ${location.pathname === '/progress' ? 'active' : ''}`}><FiPieChart /> Progress</Link>
-            <Link to="/challenges" className={`sidebar-link ${location.pathname === '/challenges' ? 'active' : ''}`}><FiCheckCircle /> Challenges</Link>
-            <Link to="/settings" className={`sidebar-link ${location.pathname === '/settings' ? 'active' : ''}`}><FiSettings /> Settings</Link>
+            <Link to="/leaderboard" onClick={() => setSidebarOpen(false)} className={`sidebar-link ${location.pathname === '/leaderboard' ? 'active' : ''}`}><FiTrendingUp /> Leaderboard</Link>
+            <Link to="/achievements" onClick={() => setSidebarOpen(false)} className={`sidebar-link ${location.pathname === '/achievements' ? 'active' : ''}`}><FiAward /> Achievements</Link>
+            <Link to="/progress" onClick={() => setSidebarOpen(false)} className={`sidebar-link ${location.pathname === '/progress' ? 'active' : ''}`}><FiPieChart /> Progress</Link>
+            <Link to="/challenges" onClick={() => setSidebarOpen(false)} className={`sidebar-link ${location.pathname === '/challenges' ? 'active' : ''}`}><FiCheckCircle /> Challenges</Link>
+            <Link to="/settings" onClick={() => setSidebarOpen(false)} className={`sidebar-link ${location.pathname === '/settings' ? 'active' : ''}`}><FiSettings /> Settings</Link>
           </aside>
         )}
 
