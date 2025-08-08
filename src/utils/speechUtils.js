@@ -1,7 +1,6 @@
 // src/utils/speechUtils.js
 
 let synth = window.speechSynthesis;
-let currentUtterance = null;
 
 export const speakText = (text) => {
   if (synth.speaking) {
@@ -13,8 +12,6 @@ export const speakText = (text) => {
   utterance.pitch = 1;
   utterance.lang = 'en-US';
   synth.speak(utterance);
-
-  currentUtterance = utterance;
 };
 
 export const stopSpeaking = () => {
