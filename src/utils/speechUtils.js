@@ -1,27 +1,53 @@
 // src/utils/speechUtils.js
 
-let synth = window.speechSynthesis;
+// Initialize Speech Synthesis API
+const synth = window.speechSynthesis;
 
+/**
+ * Speak the provided text aloud using SpeechSynthesis.
+ * @param {string} text - Text to be spoken aloud.
+ */
 export const speakText = (text) => {
+  if (!text) return;
+
+  // Stop any ongoing speech
   if (synth.speaking) {
-    synth.cancel(); // Stop any ongoing speech
+    synth.cancel();
   }
 
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 1;
-  utterance.pitch = 1;
-  utterance.lang = 'en-US';
+  utterance.rate = 1; // Speaking speed
+  utterance.pitch = 1; // Voice pitch
+  utterance.lang = 'en-US'; // Language
+
   synth.speak(utterance);
 };
 
+/**
+ * Stop any ongoing speech immediately.
+ */
 export const stopSpeaking = () => {
   if (synth.speaking) {
     synth.cancel();
   }
 };
 
+/**
+ * Start listening for speech input and return the result via a callback.
+ * @param {function} onResult - Called with recognized text.
+ * @param {function} onEnd - Called when recognition ends.
+ */
 export const startListening = (onResult, onEnd) => {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  // Use browser's speech recognition API
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    console.error('Speech recognition not supported in this browser.');
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
   recognition.lang = 'en-US';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
