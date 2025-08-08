@@ -1,0 +1,216 @@
+/* ChallengesPage.css with Dark Mode */
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --card-bg: #fff;
+  --border-color: #e5e7eb;
+  --primary-color: #4f46e5;
+  --primary-dark: #4338ca;
+  --secondary-color: #7c3aed;
+  --text-light: #6b7280;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode {
+  --bg-color: #1a1a1a;
+  --text-color: #f3f4f6;
+  --card-bg: #2d2d2d;
+  --border-color: #444;
+  --primary-color: #7c73e6;
+  --primary-dark: #6b63d1;
+  --secondary-color: #9f7aea;
+  --text-light: #9ca3af;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.challenges-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.challenges-container h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.level-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.level-selector label {
+  color: var(--text-light);
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.level-selector select {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  background: var(--card-bg);
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text-color);
+  flex-grow: 1;
+  max-width: 200px;
+  transition: all 0.3s ease;
+}
+
+.generate-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(79, 70, 229, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 180px;
+}
+
+.generate-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.generate-btn:disabled {
+  background-color: var(--border-color);
+  color: var(--primary-color);
+  cursor: not-allowed;
+}
+
+.challenge-content {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  border-left: 4px solid var(--primary-color);
+}
+
+.challenge-content h2,
+.challenge-content h3 {
+  color: var(--primary-color);
+  margin: 1rem 0 0.5rem 0;
+}
+
+.challenge-content strong {
+  color: var(--secondary-color);
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.speech-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.speech-controls button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.speech-controls button:hover {
+  background-color: var(--primary-dark);
+}
+
+.speech-controls button:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+}
+
+.clear-btn {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.clear-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+.dark-mode .spinner {
+  border-top-color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .challenges-container {
+    padding: 1rem;
+  }
+
+  .level-selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .level-selector select,
+  .generate-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .speech-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

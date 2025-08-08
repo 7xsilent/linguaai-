@@ -1,0 +1,137 @@
+/* ConversationPage.css with Dark Mode */
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --card-bg: #fff;
+  --border-color: #ddd;
+  --primary-color: #4f46e5;
+  --primary-dark: #4338ca;
+  --user-bubble: #4f46e5;
+  --ai-bubble: #e0e0e0;
+  --ai-text: #333;
+  --header-bg: #4f46e5;
+}
+
+.dark-mode {
+  --bg-color: #1a1a1a;
+  --text-color: #f3f4f6;
+  --card-bg: #2d2d2d;
+  --border-color: #444;
+  --primary-color: #7c73e6;
+  --primary-dark: #6b63d1;
+  --user-bubble: #7c73e6;
+  --ai-bubble: #3d3d3d;
+  --ai-text: #f3f4f6;
+  --header-bg: #7c73e6;
+}
+
+.conversation-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.conversation-header {
+  padding: 1rem;
+  background-color: var(--header-bg);
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.messages-container {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: var(--bg-color);
+}
+
+.message-row {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.message-row.user {
+  justify-content: flex-end;
+}
+
+.message-row.ai {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 70%;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.message-bubble.user {
+  background-color: var(--user-bubble);
+  color: white;
+  border-radius: 15px 15px 0 15px;
+}
+
+.message-bubble.ai {
+  background-color: var(--ai-bubble);
+  color: var(--ai-text);
+  border-radius: 15px 15px 15px 0;
+}
+
+.input-container {
+  border-top: 1px solid var(--border-color);
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--card-bg);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.message-input {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  outline: none;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  resize: none;
+}
+
+.send-button {
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  padding: 0 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.send-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .conversation-container {
+    height: 90vh;
+    margin: 1rem;
+  }
+}
