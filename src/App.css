@@ -1,4 +1,4 @@
-/* App.css - With Complete Dark Mode Support & Mobile Scrollable Navbar */
+/* App.css - With Complete Dark Mode Support */
 
 /* Light Mode Variables */
 :root {
@@ -76,25 +76,10 @@ body {
   text-decoration: none;
 }
 
-/* Horizontal scrollable nav links */
 .nav-links {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-    flex: 1;
-    margin: 0 0.5rem;
-  }
-  .nav-links::-webkit-scrollbar {
-    display: none; /* Chrome/Safari/Opera */
-  }
 }
 
 .nav-link {
@@ -107,7 +92,6 @@ body {
   padding: 0.5rem 0;
   position: relative;
   transition: var(--transition);
-  flex-shrink: 0; /* Prevent links from shrinking in scroll */
 }
 
 .nav-link:hover {
@@ -145,7 +129,7 @@ body {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-radius: var(--radius);
   font-weight: 600;
   cursor: pointer;
@@ -219,7 +203,7 @@ body {
   transition: var(--transition);
 }
 
-/* Mobile Menu Button */
+/* Mobile Menu */
 .mobile-menu-button {
   display: none;
   background: none;
@@ -241,24 +225,16 @@ body {
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.75rem 1rem;
+    padding: 1rem;
   }
   
   .mobile-menu-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
   }
   
   .sidebar {
     transform: translateX(-100%);
-    width: 260px;
-    padding-top: 84px;
-    top: 0;
-    height: 100vh;
-    background-color: var(--bg-card);
-    z-index: 200;
-    transition: transform 280ms ease;
+    width: 280px;
   }
   
   .sidebar.active {
@@ -267,7 +243,7 @@ body {
   
   .content {
     margin-left: 0;
-    padding: 1.25rem;
+    padding: 1.5rem;
   }
 }
 
@@ -279,4 +255,33 @@ body {
 
 .fade-in {
   animation: fadeIn 0.5s ease-out;
+}
+
+/* ---------- Mobile navbar horizontal scroll style ---------- */
+@media (max-width: 768px) {
+  /* Make nav horizontally scrollable instead of hiding items */
+  .nav-links {
+    display: flex !important;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    gap: 1rem;
+    padding-bottom: 4px;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  /* Optional: style scrollbar */
+  .nav-links::-webkit-scrollbar {
+    height: 6px;
+  }
+  .nav-links::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.15);
+    border-radius: 10px;
+  }
 }
