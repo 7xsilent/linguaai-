@@ -1,20 +1,20 @@
 // src/pages/SpeakingPage.js
 import React, { useState, useRef } from 'react';
 import './SpeakingPage.css';
-import { getSpeakingFeedback, getPronunciationFeedback } from '../services/geminiService';
+import { getPronunciationFeedback } from '../services/geminiService'; // ✅ removed unused getSpeakingFeedback
 
 const synth = window.speechSynthesis;
 
 const SpeakingPage = () => {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const [feedback, setFeedback] = useState('');
   const [pronunciation, setPronunciation] = useState('');
   const [loading, setLoading] = useState(false);
   const [showFeedbackButton, setShowFeedbackButton] = useState(false);
   const utteranceRef = useRef(null);
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
   const mic = new SpeechRecognition();
   mic.continuous = false;
   mic.interimResults = false;
@@ -35,17 +35,16 @@ const SpeakingPage = () => {
 
   const startListening = () => {
     setTranscript('');
-    setFeedback('');
     setPronunciation('');
     setIsListening(true);
     mic.start();
 
-    mic.onresult = async (event) => {
+    mic.onresult = (event) => {
       const result = event.results[0][0].transcript;
       setTranscript(result);
       setIsListening(false);
       mic.stop();
-      setShowFeedbackButton(true); // Show feedback button after speech
+      setShowFeedbackButton(true);
       speak(`You said: ${result}. Let me check if it's correct.`);
     };
 
@@ -66,7 +65,7 @@ const SpeakingPage = () => {
   return (
     <div className="speaking-page">
       <h2>🗣️ Speaking Practice</h2>
-      
+
       <div className="chat-bar">
         <input
           type="text"
@@ -88,7 +87,10 @@ const SpeakingPage = () => {
       {loading && <p>⏳ Getting feedback...</p>}
 
       {showFeedbackButton && (
-        <button onClick={handleAIPronunciationFeedback} className="ai-feedback-button">
+        <button
+          onClick={handleAIPronunciationFeedback}
+          className="ai-feedback-button"
+        >
           🤖 AI Feedback
         </button>
       )}
