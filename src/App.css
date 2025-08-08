@@ -1,7 +1,6 @@
-/* App.css - With Complete Dark Mode Support */
+/* App.css - With Complete Dark Mode Support & Mobile Scrollable Navbar */
 
 /* Light Mode Variables */
-
 :root {
   --primary: #4f46e5;
   --primary-dark: #4338ca;
@@ -77,10 +76,25 @@ body {
   text-decoration: none;
 }
 
+/* Horizontal scrollable nav links */
 .nav-links {
   display: flex;
   gap: 1.5rem;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    flex: 1;
+    margin: 0 0.5rem;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+  }
 }
 
 .nav-link {
@@ -93,6 +107,7 @@ body {
   padding: 0.5rem 0;
   position: relative;
   transition: var(--transition);
+  flex-shrink: 0; /* Prevent links from shrinking in scroll */
 }
 
 .nav-link:hover {
@@ -130,7 +145,7 @@ body {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1rem;
   border-radius: var(--radius);
   font-weight: 600;
   cursor: pointer;
@@ -204,7 +219,7 @@ body {
   transition: var(--transition);
 }
 
-/* Mobile Menu */
+/* Mobile Menu Button */
 .mobile-menu-button {
   display: none;
   background: none;
@@ -226,16 +241,24 @@ body {
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem;
+    padding: 0.75rem 1rem;
   }
   
   .mobile-menu-button {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .sidebar {
     transform: translateX(-100%);
-    width: 280px;
+    width: 260px;
+    padding-top: 84px;
+    top: 0;
+    height: 100vh;
+    background-color: var(--bg-card);
+    z-index: 200;
+    transition: transform 280ms ease;
   }
   
   .sidebar.active {
@@ -244,7 +267,7 @@ body {
   
   .content {
     margin-left: 0;
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 }
 
@@ -256,89 +279,4 @@ body {
 
 .fade-in {
   animation: fadeIn 0.5s ease-out;
-}
-/* ---------- Mobile navbar & sidebar responsive styles ---------- */
-
-/* Hide hamburger by default (desktop) */
-.mobile-menu-button {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* Overlay for mobile menu */
-.mobile-overlay {
-  display: none;
-  position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
-  background: rgba(0,0,0,0.35);
-  z-index: 140; /* sits below sidebar (which will be 200) */
-  transition: opacity 0.25s ease;
-  opacity: 0;
-}
-
-.mobile-overlay.active {
-  display: block;
-  opacity: 1;
-}
-
-/* Mobile specific adjustments */
-@media (max-width: 768px) {
-  /* hide the horizontal nav links */
-  .nav-links {
-    display: none;
-  }
-
-  /* show hamburger */
-  .mobile-menu-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text);
-  }
-
-  /* Sidebar becomes full-height drawer */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 260px;
-    padding: 1.5rem;
-    padding-top: 84px; /* space for header height */
-    background-color: var(--bg-card);
-    transform: translateX(-110%); /* hidden off-screen */
-    transition: transform 280ms ease;
-    z-index: 200;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-    overflow-y: auto;
-    border-right: 1px solid var(--border);
-  }
-
-  .sidebar.active {
-    transform: translateX(0); /* slide in */
-  }
-
-  /* Make links clearer and larger for touch */
-  .sidebar-link {
-    padding: 0.9rem 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.02rem;
-    border-radius: 8px;
-  }
-
-  /* Ensure main content takes full width on mobile */
-  .content {
-    margin-left: 0;
-    padding: 1.25rem;
-  }
-
-  /* If you want the top navbar to remain visible but not obstruct content */
-  .navbar {
-    padding: 0.75rem 1rem;
-    height: 64px;
-  }
 }
