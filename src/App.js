@@ -1,13 +1,14 @@
+// src/App.js
 import './App.css';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Link, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Routes, Route, useLocation } from 'react-router-dom'; // Removed Navigate
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import {
-  FiHome, FiBook, FiMic, FiMessageSquare, 
-  FiAward, FiTrendingUp, FiSettings, 
+  FiHome, FiBook, FiMic, FiMessageSquare,
+  FiAward, FiTrendingUp, FiSettings,
   FiUser, FiLogIn, FiCheckCircle, FiPieChart,
   FiMenu, FiX
 } from 'react-icons/fi';
@@ -39,7 +40,12 @@ class ErrorBoundary extends React.Component {
   }
   render() {
     if (this.state.hasError) {
-      return <div><h2>Something went wrong</h2><button onClick={() => window.location.reload()}>Reload</button></div>;
+      return (
+        <div>
+          <h2>Something went wrong</h2>
+          <button onClick={() => window.location.reload()}>Reload</button>
+        </div>
+      );
     }
     return this.props.children;
   }
@@ -55,7 +61,10 @@ function AppContent() {
       {/* Navbar */}
       {!hideNavbar && (
         <header className="navbar">
-          <button className="mobile-menu-button" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <button
+            className="mobile-menu-button"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
           <Link to="/" className="nav-logo">LinguaAI</Link>
