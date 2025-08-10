@@ -1,8 +1,10 @@
+// src/pages/GrammarPage.js
 import React, { useState } from 'react';
 import Markdown from 'react-markdown';
 import { FiSend, FiRotateCw } from 'react-icons/fi';
 import { BsCheckCircle, BsExclamationTriangle } from 'react-icons/bs';
 import './pageStyles.css';
+import { grammarCheck } from '../services/geminiService';
 
 const GrammarPage = () => {
   const [input, setInput] = useState('');
@@ -17,27 +19,12 @@ const GrammarPage = () => {
     setCorrection('');
 
     try {
-      // Your Gemini API call logic here
-      // Mock response for demonstration
-      setTimeout(() => {
-        setCorrection(`
-### Correction & Explanation
-
-**Original:**  
-"${input}"
-
-**Corrected:**  
-"This is a properly structured sentence."
-
-**Explanation:**
-- Fixed subject-verb agreement
-- Added proper punctuation
-- Improved clarity
-        `);
-        setLoading(false);
-      }, 1500);
+      const result = await grammarCheck(input);
+      setCorrection(result);
     } catch (err) {
+      console.error(err);
       setError('Error fetching grammar correction.');
+    } finally {
       setLoading(false);
     }
   };
