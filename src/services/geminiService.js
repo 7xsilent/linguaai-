@@ -26,10 +26,30 @@ export async function callGemini(messages) {
 
 // ✅ Grammar Check
 export async function grammarCheck(text) {
-  const messages = [{
-    role: 'user',
-    parts: [{ text: `Check this text for grammar and suggest corrections:\n\n${text}` }]
-  }];
+  const prompt = `
+You are a grammar and writing improvement assistant.
+
+Check the following text for grammatical errors, clarity, and style improvements.  
+Then return the result in **Markdown** format with three sections:
+
+### Correction & Explanation
+
+**Original:**  
+"${text}"
+
+**Corrected:**  
+<Your corrected sentence here>
+
+**Explanation:**  
+- List all the key grammar mistakes
+- Mention style or clarity improvements
+- Keep explanations concise
+`;
+
+  const messages = [
+    { role: "user", parts: [{ text: prompt }] }
+  ];
+
   return await callGemini(messages);
 }
 
